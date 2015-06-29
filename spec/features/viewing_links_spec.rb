@@ -1,4 +1,3 @@
-require 'models/link'
 
 feature 'Viewing links' do
 

@@ -1,3 +1,5 @@
+require 'data_mapper'
+
 class Link
   include DataMapper::Resource
 
@@ -5,3 +7,4 @@ class Link
   property :title, String
   property :url, String
 end
+
