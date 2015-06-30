@@ -1,4 +1,6 @@
 require 'sinatra/base'
+require_relative './models/link'
+require_relative '../data_mapper_setup.rb'
 
 class BookmarkManager < Sinatra::Base
   set :views, proc { File.join(root, '..', 'views') }
@@ -8,6 +10,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/links' do
+    @links = Link.all
     erb :links
   end
 

@@ -2,7 +2,7 @@
 feature 'Viewing links' do
 
   scenario 'Can see links on links page' do
-    Link.new(url: 'https://www.makersacademy.com', title: 'Makers Academy')
+    Link.create(url: 'https://www.makersacademy.com', title: 'Makers Academy')
     visit '/links'
     expect(page.status_code).to eq 200
 
