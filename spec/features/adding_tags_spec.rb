@@ -20,4 +20,5 @@ feature 'Adding tags' do
     link = Link.first
     expect(link.tags.map { |tags| tags.name } ).to include('pokemon', 'cartoon', 'yellow')
   end
+  
 end

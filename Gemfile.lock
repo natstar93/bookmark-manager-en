@@ -111,6 +111,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   capybara
   data_mapper
   database_cleaner
@@ -119,3 +120,6 @@ DEPENDENCIES
   rspec
   rspec-sinatra
   sinatra
+
+BUNDLED WITH
+   1.10.5
