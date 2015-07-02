@@ -1,5 +1,7 @@
 require 'sinatra/base'
+require 'launchy'
 require_relative './models/link'
+require_relative './models/user'
 require_relative '../data_mapper_setup.rb'
 
 class BookmarkManager < Sinatra::Base
@@ -10,6 +12,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/' do
     'Hello BookmarkManager!'
+    erb :'index'
   end
 
   get '/links' do
@@ -53,22 +56,17 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    User.create(email: params[:email],
+    user = User.create(email: params[:email],
       password: params[:password])
-    redirect to('/links')
-    session[:user_id] = user.user_id
+    session[:user_id] = user.id
     redirect to('/')
   end
   
   helpers do
     def current_user
-      user ||= User.first(id: session[:user_id]) 
+      user ||= User.first(id: session[:user_id])
     end
-
   end
-
-
-
 
 
   # start the server if ruby file executed directly
