@@ -120,6 +120,3 @@ DEPENDENCIES
   rspec
   rspec-sinatra
   sinatra
-
-BUNDLED WITH
-   1.10.5

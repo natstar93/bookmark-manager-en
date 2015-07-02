@@ -1,5 +1,6 @@
 require 'data_mapper'
 require 'dm-postgres-adapter'
+require 'dm-validations'
 
 env = ENV['RACK_ENV'] || 'development'
 
