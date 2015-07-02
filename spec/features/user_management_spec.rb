@@ -22,9 +22,9 @@ feature 'User sign up' do
 
   scenario 'requires a matching confirmation password' do
     expect { sign_up(password_confirmation: 'wrong') }.not_to change(User, :count)
-    expect(page).to have_content 'your password and confirmation passwords do not match'
+    expect(current_path).to eq('/users') #current_paty is a helper provided by Capybara
+    expect(page).to have_content 'Password and confirmation password do not match'
   end
-
 
   def sign_up(  email: 'alice@example.com',
                 password: '12345678',
@@ -35,5 +35,7 @@ feature 'User sign up' do
       fill_in :password_confirmation, with: password_confirmation
       click_button 'Sign up'
   end
+
+
 
 end
