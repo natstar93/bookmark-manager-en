@@ -7,7 +7,7 @@ require_relative '../data_mapper_setup.rb'
 
 class BookmarkManager < Sinatra::Base
   set :views, proc { File.join(root, '..', 'views') }
-
+  use Rack::MethodOverride
   enable :sessions
   set :session_secret, 'super secret'
   register Sinatra::Flash
@@ -85,6 +85,13 @@ class BookmarkManager < Sinatra::Base
       erb :'sessions/new'
     end
   end
+
+  delete '/sessions' do
+    flash.now[:notice] = 'goodbye!'
+    session[:user_id] = nil
+    erb :'sessions/new'
+  end
+
   helpers do
     def current_user
       @user ||= User.first(id: session[:user_id])
