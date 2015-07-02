@@ -12,5 +12,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'bcrypt'
   gem 'sinatra-flash'
+  gem 'factory_girl', "~> 4.0"
 end
 

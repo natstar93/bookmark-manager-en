@@ -34,6 +34,17 @@ Capybara.app = BookmarkManager
 RSpec.configure do |config|
 
   config.before(:suite) do
+    begin
+      DatabaseCleaner.start
+      FactoryGirl.lint
+    ensure
+      DatabaseCleaner.clean
+    end
+  end
+
+  config.include FactoryGirl::Syntax::Methods  
+
+  config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)
   end
@@ -68,6 +79,9 @@ RSpec.configure do |config|
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
+    
+  
+
   end
 
 # The settings below are suggested to provide a good initial experience

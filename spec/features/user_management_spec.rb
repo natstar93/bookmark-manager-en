@@ -33,6 +33,21 @@ feature 'User sign up' do
     expect(page).to have_content 'Email must not be blank'
   end
 
+  scenario 'I cannot sign up with an existing email' do 
+    sign_up_as(user)
+    expect { sign_up_as(user) }.to change(User, :count).by(0)
+    expect(page).to have_content('Email is already taken')
+  end  
+
+
+  def sign_up_as(user)
+      visit '/users/new'
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+      click_button 'Sign in'
+  end
+
+
   def sign_up(  email: 'alice@example.com',
                 password: '12345678',
                 password_confirmation: '12345678')
