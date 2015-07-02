@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'launchy'
+require 'sinatra/partial'
 require_relative './models/link'
 require_relative './models/user'
 require_relative '../data_mapper_setup.rb'
@@ -11,6 +12,8 @@ class BookmarkManager < Sinatra::Base
   enable :sessions
   set :session_secret, 'super secret'
   register Sinatra::Flash
+  register Sinatra::Partial
+  set :partial_template_engine, :erb
 
   get '/' do
     'Hello BookmarkManager!'
@@ -87,7 +90,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   delete '/sessions' do
-    flash.now[:notice] = 'goodbye!'
+    flash.now[:notice] = 'Goodbye!'
     session[:user_id] = nil
     erb :'sessions/new'
   end
