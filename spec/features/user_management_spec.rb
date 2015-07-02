@@ -10,16 +10,6 @@ feature 'User sign up' do
     expect(User.first.email).to eq('alice@example.com')
   end
 
-  def sign_up(email: 'alice@example.com', 
-              password: 'oranges!')
-      visit '/users/new'
-      expect(page.status_code).to eq(200)
-      fill_in :email, with: email
-      fill_in :password, with: password
-      click_button 'Sign up'
-  end
-
-
   scenario 'requires a matching confirmation password' do
     expect { sign_up(password_confirmation: 'wrong') }.not_to change(User, :count)
     expect(current_path).to eq('/users') #current_path is a helper provided by Capybara
@@ -38,8 +28,7 @@ feature 'User sign up' do
     sign_up_as(user)
     expect { sign_up_as(user) }.to change(User, :count).by(0)
     expect(page).to have_content('Email is already taken')
-  end  
-
+  end
 
   def sign_up_as(user)
       visit '/users/new'
@@ -48,7 +37,6 @@ feature 'User sign up' do
       fill_in :password_confirmation, with: user.password_confirmation
       click_button 'Sign up'
   end
-
 
   def sign_up(  email: 'alice@example.com',
                 password: '12345678',
@@ -60,6 +48,26 @@ feature 'User sign up' do
       click_button 'Sign up'
   end
 
+end
 
+feature 'User sign in' do
+
+  let(:user) do
+      User.create(email: 'user@example.com',
+                   password: 'secret1234',
+                   password_confirmation: 'secret1234')
+     end
+
+     scenario 'with correct credentials' do
+       sign_in(email: user.email,   password: user.password)
+       expect(page).to have_content "Welcome, #{user.email}"
+     end
+
+     def sign_in(email:, password:)
+       visit '/sessions/new'
+       fill_in :email, with: email
+       fill_in :password, with: password
+       click_button 'Login'
+     end
 
 end
